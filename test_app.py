@@ -1,4 +1,3 @@
-from app.main import get_app
 import requests
 import unittest
 
