@@ -8,8 +8,12 @@ class MyTest(TestCase):
         app = Flask(__name__)
         app.config['TESTING'] = True
         return app
-    def test_text(self):
-        response = self.client.get("/hello_world.html")
 
+    def test_text(self):
+        response = self.client.get('/')
+
+        print("response", response)
+        print(response.data)
         #assert "" == response.data
-        assert 'Hello World!' not in response
+        self.assertEqual(response, "Hello World!")
+        #assert 'Hello World!' not in response

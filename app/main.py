@@ -1,7 +1,10 @@
 from flask import Flask, request,render_template
 
+
 app = Flask(__name__)
 
+def get_app():
+    return app
 
 @app.route('/')
 def index():
