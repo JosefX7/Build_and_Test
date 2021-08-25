@@ -1,23 +1,26 @@
 version: 2.1
-jobs:
-  run_tests:
-    docker:
-      - image: circleci/python:3.8.11
-    steps:
-      - checkout
+# Use a package of configuration called an orb.
+orbs:
+  # Declare a dependency on the welcome-orb
+  welcome: circleci/welcome-orb@0.4.1
+# Orchestrate or schedule a set of jobs
+workflows:
+  # Name the workflow "welcome"
+  build_test:
+    jobs:
+      - run_tests
+    # Run the welcome/run job in its own container
       - run:
           name: Install Python Dependencies
           command: |
             pip install -r requirements.txt
-      - run:
-          name: Run Test
-          command: |
-            pytest --junitxml=test-reports/junit.xml --html=test-reports/pytest_report.html --self-contained-html
-      - store_test_results:
-          path: test-reports
-      - store_artifacts:
-          path: test-reports
-workflows:
-  build_test:
-    jobs:
-      - run_tests
+            - run:
+                name: Run Test
+                command: |
+                  pytest --junitxml=test-reports/junit.xml --html=test-reports/pytest_report.html --self-contained-html
+            - store_test_results:
+                path: test-reports
+            - store_artifacts:
+                path: test-reports
+
+
