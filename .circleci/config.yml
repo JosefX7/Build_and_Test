@@ -1,6 +1,8 @@
 version: 2.1
 jobs:
-  run:test:
+  run_tests:
+    docker:
+      - image: circleci/python:3.7.4
     steps:
       - checkout
       - run:
@@ -11,3 +13,12 @@ jobs:
           name: Run Test
           command: |
             python testing.py --junitxml=test-reports/junit.xml --html=test-reports/pytest_report.html --self-containd-html
+      - store_test_results:
+          path: test-reports
+      - store_artifacts:
+          path: test-reports
+workflows:
+  build_test:
+    jobs:
+      - run_tests
+
