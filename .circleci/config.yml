@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Run Test
           command: |
-            python MyTest.py --junitxml=test-reports/junit.xml --html=test-reports/pytest_report.html --self-containd-html
+            python /app/Test/test_app.py --junitxml=test-reports/junit.xml --html=test-reports/pytest_report.html --self-containd-html
       - store_test_results:
           path: test-reports
       - store_artifacts:
